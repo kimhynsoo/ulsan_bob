@@ -4,15 +4,84 @@
 <meta charset="UTF-8">
 <title>교직원식당 식단표</title>
 <style>
-  body { width: 320px; font-family: -apple-system, "Malgun Gothic", sans-serif; padding: 16px; margin: 0; }
-  .nav { display: flex; align-items: center; justify-content: space-between; }
-  .nav button { font-size: 18px; padding: 4px 10px; cursor: pointer; }
-  .title { text-align: center; }
-  #day { font-size: 20px; font-weight: bold; }
-  #date { color: #666; font-size: 13px; }
-  #menu { list-style: none; padding: 0; margin: 12px 0 0; }
-  #menu li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 15px; }
-  #status { text-align: center; color: #999; padding: 20px 0; }
+  :root { --teal: #0EA2A4; --lime: #ABCD05; }
+  * { box-sizing: border-box; }
+  body {
+    width: 340px;
+    font-family: -apple-system, "Malgun Gothic", sans-serif;
+    padding: 14px;
+    margin: 0;
+    background: #f4f6f5;
+    color: #222;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--teal), var(--lime));
+    border-radius: 14px;
+    padding: 14px 10px;
+    box-shadow: 0 4px 14px rgba(14, 162, 164, 0.28);
+  }
+  .nav button {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    font-size: 15px;
+    line-height: 1;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .nav button:hover { background: rgba(255, 255, 255, 0.45); }
+  .nav button:active { transform: scale(0.92); }
+  .nav button:disabled { background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.5); cursor: default; }
+  .title { text-align: center; color: #fff; min-height: 30px; }
+  #day { font-size: 18px; font-weight: 700; letter-spacing: 0.2px; }
+  #date { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  #status {
+    text-align: center;
+    color: #888;
+    padding: 28px 10px;
+    margin-top: 12px;
+    background: #fff;
+    border-radius: 12px;
+    font-size: 13px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+  #status:empty { display: none; }
+  #menu {
+    list-style: none;
+    padding: 4px 4px;
+    margin: 12px 0 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  #menu:empty { display: none; }
+  #menu li {
+    position: relative;
+    padding: 9px 10px 9px 22px;
+    font-size: 14px;
+    line-height: 1.4;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  #menu li::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--lime));
+  }
+  #menu li:last-child { border-bottom: none; }
 </style>
 </head>
 <body>
