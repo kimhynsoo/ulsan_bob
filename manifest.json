@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "울산과학대 교직원식당 식단표",
+  "version": "1.0.0",
+  "description": "울산과학대학교 동부캠퍼스 교직원식당 오늘의 점심 메뉴를 보여줍니다.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "https://www.uc.ac.kr/*"
+  ]
+}

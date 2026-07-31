@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>교직원식당 식단표</title>
+<style>
+  body { width: 320px; font-family: -apple-system, "Malgun Gothic", sans-serif; padding: 16px; margin: 0; }
+  .nav { display: flex; align-items: center; justify-content: space-between; }
+  .nav button { font-size: 18px; padding: 4px 10px; cursor: pointer; }
+  .title { text-align: center; }
+  #day { font-size: 20px; font-weight: bold; }
+  #date { color: #666; font-size: 13px; }
+  #menu { list-style: none; padding: 0; margin: 12px 0 0; }
+  #menu li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 15px; }
+  #status { text-align: center; color: #999; padding: 20px 0; }
+</style>
+</head>
+<body>
+  <div class="nav">
+    <button id="prevBtn" aria-label="이전 날">◀</button>
+    <div class="title">
+      <div id="day"></div>
+      <div id="date"></div>
+    </div>
+    <button id="nextBtn" aria-label="다음 날">▶</button>
+  </div>
+  <div id="status">불러오는 중...</div>
+  <ul id="menu"></ul>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
