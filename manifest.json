@@ -4,7 +4,11 @@
   "version": "1.0.0",
   "description": "울산과학대학교 동부캠퍼스 교직원식당 오늘의 점심 메뉴를 보여줍니다.",
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icon128.png"
+  },
+  "icons": {
+    "128": "icon128.png"
   },
   "host_permissions": [
     "https://www.uc.ac.kr/*"
