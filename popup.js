@@ -44,8 +44,18 @@ function render() {
     return;
   }
   els.status.textContent = "";
+  // ponytail: 메뉴는 밥-국-메인 순으로 올라온다. <푸드코트> 같은 소제목 이후는 전부 부가 메뉴.
+  const MAIN_CLASSES = ["rice", "soup", "main"];
+  let i = 0;
   els.menu.innerHTML = day.menuLines
-    .map((line) => `<li>${escapeHtml(line)}</li>`)
+    .map((line) => {
+      if (/^<.*>$/.test(line)) {
+        i = MAIN_CLASSES.length;
+        return `<li class="sec">${escapeHtml(line.slice(1, -1))}</li>`;
+      }
+      const cls = MAIN_CLASSES[i++] ?? "side";
+      return `<li class="${cls}">${escapeHtml(line)}</li>`;
+    })
     .join("");
 }
 

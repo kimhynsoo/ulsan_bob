@@ -82,6 +82,20 @@
     background: linear-gradient(135deg, var(--teal), var(--lime));
   }
   #menu li:last-child { border-bottom: none; }
+  #menu li.rice::before { background: #E8A33D; }
+  #menu li.soup::before { background: #4A90D9; }
+  #menu li.main::before { background: #E0533D; }
+  #menu li.main { font-weight: 700; }
+  #menu li.side::before { background: #c4c9c6; }
+  #menu li.sec {
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #999;
+    background: #fafbfa;
+  }
+  #menu li.sec::before { display: none; }
   .footer-link {
     display: flex;
     align-items: center;
