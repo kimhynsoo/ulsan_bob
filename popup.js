@@ -3,13 +3,15 @@ import { fetchWeek } from "./diet.js";
 const els = {
   day: document.getElementById("day"),
   date: document.getElementById("date"),
+  tabs: document.getElementById("tabs"),
   menu: document.getElementById("menu"),
   status: document.getElementById("status"),
   prev: document.getElementById("prevBtn"),
   next: document.getElementById("nextBtn"),
 };
 
-const state = { week: null, dayIndex: -1 };
+// tab: 선택한 섹션 제목. 날짜를 넘겨도 유지된다.
+const state = { week: null, dayIndex: -1, tab: "교직원" };
 
 function todayStr() {
   const d = new Date();
@@ -30,6 +32,7 @@ function render() {
   if (!day) {
     els.day.textContent = "";
     els.date.textContent = "";
+    els.tabs.innerHTML = "";
     els.menu.innerHTML = "";
     els.status.textContent = state.week
       ? "이 날짜의 식단 정보가 없습니다."
@@ -38,24 +41,32 @@ function render() {
   }
   els.day.textContent = `${day.day}요일`;
   els.date.textContent = day.date;
-  if (day.menuLines.length === 0) {
+
+  const section = day.sections.find((s) => s.title === state.tab) ?? day.sections[0];
+  if (!section) {
+    els.tabs.innerHTML = "";
     els.menu.innerHTML = "";
     els.status.textContent = "아직 등록된 메뉴가 없습니다.";
     return;
   }
   els.status.textContent = "";
-  // ponytail: 메뉴는 밥-국-메인 순으로 올라온다. <푸드코트> 같은 소제목 이후는 전부 부가 메뉴.
-  const MAIN_CLASSES = ["rice", "soup", "main"];
-  let i = 0;
-  els.menu.innerHTML = day.menuLines
-    .map((line) => {
-      if (/^<.*>$/.test(line)) {
-        i = MAIN_CLASSES.length;
-        return `<li class="sec">${escapeHtml(line.slice(1, -1))}</li>`;
-      }
-      const cls = MAIN_CLASSES[i++] ?? "side";
-      return `<li class="${cls}">${escapeHtml(line)}</li>`;
-    })
+
+  els.tabs.innerHTML =
+    day.sections.length > 1
+      ? day.sections
+          .map(
+            (s) =>
+              `<button class="${s === section ? "on" : ""}" data-tab="${escapeHtml(
+                s.title
+              )}">${escapeHtml(s.title)}</button>`
+          )
+          .join("")
+      : "";
+
+  // 정식은 밥-국-메인 순으로 올라온다. 그 뒤는 전부 부가 메뉴. 푸드코트는 전부 단품.
+  const MAIN_CLASSES = section.title === "푸드코트" ? [] : ["rice", "soup", "main"];
+  els.menu.innerHTML = section.items
+    .map((line, i) => `<li class="${MAIN_CLASSES[i] ?? "side"}">${escapeHtml(line)}</li>`)
     .join("");
 }
 
@@ -109,6 +120,12 @@ async function goPrev() {
   render();
 }
 
+els.tabs.addEventListener("click", (e) => {
+  const tab = e.target.closest("button")?.dataset.tab;
+  if (!tab) return;
+  state.tab = tab;
+  render();
+});
 els.next.addEventListener("click", goNext);
 els.prev.addEventListener("click", goPrev);
 init();

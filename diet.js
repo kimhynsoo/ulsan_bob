@@ -22,11 +22,13 @@ export function parseWeekHtml(html) {
     ? Array.from(lunchRow.querySelectorAll("td")).map((td, i) => ({
         day: dateInfos[i]?.day ?? "",
         date: dateInfos[i]?.date ?? "",
-        menuLines: td.innerHTML
-          .replace(/<!--[\s\S]*?-->/g, "")
-          .split(/<br\s*\/?>/i)
-          .map((line) => decodeHtml(line).trim())
-          .filter(Boolean),
+        sections: splitSections(
+          td.innerHTML
+            .replace(/<!--[\s\S]*?-->/g, "")
+            .split(/<br\s*\/?>/i)
+            .map((line) => decodeHtml(line).trim())
+            .filter(Boolean)
+        ),
       }))
     : [];
 
@@ -34,6 +36,21 @@ export function parseWeekHtml(html) {
   const nextWeek = extractWeekParam(doc.querySelector(".menu-navi .next"));
 
   return { days, prevWeek, nextWeek };
+}
+
+// 중식 셀은 <데일리>/<교직원>/<푸드코트> 소제목으로 나뉜다.
+// 데일리는 교직원과 거의 같은 메뉴라 뺀다. 소제목이 없는 주는 통째로 한 섹션.
+function splitSections(lines) {
+  const sections = [];
+  for (const line of lines) {
+    const title = line.match(/^<(.+)>$/)?.[1];
+    if (title) sections.push({ title, items: [] });
+    else {
+      if (sections.length === 0) sections.push({ title: "", items: [] });
+      sections[sections.length - 1].items.push(line);
+    }
+  }
+  return sections.filter((s) => s.items.length > 0 && s.title !== "데일리");
 }
 
 function extractWeekParam(button) {

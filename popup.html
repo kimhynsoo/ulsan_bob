@@ -54,6 +54,31 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   }
   #status:empty { display: none; }
+  #tabs {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  #tabs:empty { display: none; }
+  #tabs button {
+    flex: 1;
+    padding: 8px 6px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    background: #fff;
+    border: 1px solid #e3e6e5;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  #tabs button:hover { color: #333; }
+  #tabs button.on {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--teal), var(--lime));
+  }
   #menu {
     list-style: none;
     padding: 4px 4px;
@@ -87,22 +112,19 @@
   #menu li.main::before { background: #E0533D; }
   #menu li.main { font-weight: 700; }
   #menu li.side::before { background: #c4c9c6; }
-  #menu li.sec {
-    padding: 6px 10px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    color: #999;
-    background: #fafbfa;
-  }
-  #menu li.sec::before { display: none; }
-  .footer-link {
+  .footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     margin-top: 12px;
-    padding: 8px;
+  }
+  .footer .sep { color: #ccc; font-size: 12px; }
+  .footer-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
     color: #888;
     font-size: 12px;
     text-decoration: none;
@@ -122,12 +144,20 @@
     </div>
     <button id="nextBtn" aria-label="다음 날">▶</button>
   </div>
+  <div id="tabs"></div>
   <div id="status">불러오는 중...</div>
   <ul id="menu"></ul>
-  <a class="footer-link" href="https://github.com/kimhynsoo/ulsan_bob" target="_blank" rel="noopener">
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.5 7.5 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>
-    GitHub
-  </a>
+  <div class="footer">
+    <a class="footer-link" href="https://github.com/kimhynsoo/ulsan_bob" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.5 7.5 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>
+      GitHub
+    </a>
+    <span class="sep">·</span>
+    <a class="footer-link" href="https://www.uc.ac.kr/kr/CMS/DietMenuMgr/listByWeek.do?mCode=MN187" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm5.4 4.8h-2.1a11 11 0 0 0-1-2.5 6.5 6.5 0 0 1 3.1 2.5ZM8 1.6c.6.8 1 1.9 1.3 3.2H6.7C7 3.5 7.4 2.4 8 1.6ZM1.7 9.6a6.4 6.4 0 0 1 0-3.2h2.4a13.7 13.7 0 0 0 0 3.2H1.7Zm.9 1.6h2.1c.2 1 .6 1.8 1 2.5a6.5 6.5 0 0 1-3.1-2.5Zm2.1-6.4H2.6a6.5 6.5 0 0 1 3.1-2.5c-.4.7-.8 1.6-1 2.5Zm3.3 9.6c-.6-.8-1-1.9-1.3-3.2h2.6c-.3 1.3-.7 2.4-1.3 3.2Zm1.6-4.8H6.4a12.2 12.2 0 0 1 0-3.2h3.2a12.2 12.2 0 0 1 0 3.2Zm.7 4.1c.4-.7.8-1.6 1-2.5h2.1a6.5 6.5 0 0 1-3.1 2.5Zm1.2-4.1a13.7 13.7 0 0 0 0-3.2h2.4a6.4 6.4 0 0 1 0 3.2h-2.4Z"></path></svg>
+      식단표
+    </a>
+  </div>
   <script type="module" src="popup.js"></script>
 </body>
 </html>
